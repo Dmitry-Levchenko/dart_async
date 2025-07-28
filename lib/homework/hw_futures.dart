@@ -30,11 +30,11 @@ String pluralizeYear(int age) {
 }
 
 void main() async {
+  await task5();
   await task1();
   await task2();
   await task3();
   await task4();
-  // await task5();
 }
 
 // ============================
@@ -98,4 +98,21 @@ Future<void> task4() async {
   print('Імʼя: $name');
   print('Вік: $age $suffix');
   print('Загальний час виконання (паралельне): ${stopwatch.elapsedMilliseconds} мілісекунд');
+}
+
+// ============================
+// TASK 5: Зворотний відлік з затримкою
+// ============================
+
+Future<String> delayedCountdown(int seconds) async {
+  for (int i = seconds; i > 0; i--) {
+    print('$i...');
+    await Future.delayed(Duration(seconds: 1));
+  }
+  return 'Старт!';
+}
+
+Future<void> task5() async {
+  String result = await delayedCountdown(3);
+  print(result);
 }
