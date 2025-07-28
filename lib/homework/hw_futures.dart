@@ -1,9 +1,13 @@
+// ============================
+// MAIN
+// ============================
+
 void main() async {
-  await task1();
- // await task2();
- // await task3();
- // await task4();
- // await task5();
+  task1();
+  task2();
+ // task3();
+ // task4();
+ // task5();
 }
 
 // ============================
@@ -20,4 +24,39 @@ Future<void> task1() async {
 
   String name = await fetchName();
   print('Мене звати $name');
+}
+
+// ============================
+// TASK 2: Асинхронне отримання віку
+// ============================
+
+Future<void> task2() async {
+  Future<String> fetchAge() async {
+    return await Future.delayed(
+      Duration(milliseconds: 1500),
+      () => '36',
+    );
+  }
+
+  String pluralizeYear(int age) {
+    int lastDigit = age % 10;
+    int lastTwoDigits = age % 100;
+
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+      return 'років';
+    }
+
+    if (lastDigit == 1) {
+      return 'рік';
+    } else if (lastDigit >= 2 && lastDigit <= 4) {
+      return 'роки';
+    } else {
+      return 'років';
+    }
+  }
+
+  String ageStr = await fetchAge();
+  int age = int.parse(ageStr);
+  String suffix = pluralizeYear(age);
+  print('Мені $age $suffix');
 }
