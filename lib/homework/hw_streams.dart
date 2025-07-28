@@ -4,6 +4,7 @@
 
 void main() async {
   await task6();
+  await task7();
 }
 
 Stream<int> numberStream() {
@@ -20,4 +21,21 @@ Future<void> task6() async {
   numberStream().listen((number) {
     print(number);
   });
+}
+
+// ============================
+// TASK 7
+// ============================
+
+Stream<int> countdownStream(int seconds) {
+  return Stream.periodic(
+    Duration(seconds: 1),
+    (count) => count + 1,
+  ).take(seconds);
+}
+
+Future<void> task7() async {
+  await for (int number in countdownStream(10)) {
+    print('$number...');
+  }
 }
