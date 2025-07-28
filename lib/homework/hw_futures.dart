@@ -33,7 +33,7 @@ void main() async {
   await task1();
   await task2();
   await task3();
-  // await task4();
+  await task4();
   // await task5();
 }
 
@@ -73,5 +73,29 @@ Future<void> task3() async {
 
   print('Імʼя: $name');
   print('Вік: $age $suffix');
-  print('Загальний час виконання: ${stopwatch.elapsedMilliseconds} мілісекунд');
+  print('Загальний час виконання (послідовне): ${stopwatch.elapsedMilliseconds} мілісекунд');
+}
+
+// ============================
+// TASK 4
+// ============================
+
+Future<void> task4() async {
+  Stopwatch stopwatch = Stopwatch()..start();
+
+  List<String> results = await Future.wait([
+    fetchName(),
+    fetchAge(),
+  ]);
+
+  stopwatch.stop();
+
+  String name = results[0];
+  String ageStr = results[1];
+  int age = int.parse(ageStr);
+  String suffix = pluralizeYear(age);
+
+  print('Імʼя: $name');
+  print('Вік: $age $suffix');
+  print('Загальний час виконання (паралельне): ${stopwatch.elapsedMilliseconds} мілісекунд');
 }
